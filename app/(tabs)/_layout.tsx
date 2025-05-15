@@ -15,7 +15,7 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarIcon: ({ focused }) => (
-            <FontAwesome name="home" size={30} color={focused ? 'white' : 'lightgrey'} />
+            <FontAwesome name="home" size={30} color={focused ? '#E2F163' : 'white'} />
           ),
         }}
       />
@@ -23,7 +23,7 @@ export default function TabLayout() {
         name="two"
         options={{
           tabBarIcon: ({ focused }) => (
-            <FontAwesome name="save" size={30} color={focused ? 'white' : 'lightgrey'} />
+            <FontAwesome name="save" size={30} color={focused ? '#E2F163' : 'white'} />
           ),
         }}
       />
@@ -31,7 +31,7 @@ export default function TabLayout() {
         name="favorites"
         options={{
           tabBarIcon: ({ focused }) => (
-            <FontAwesome name="star" size={30} color={focused ? 'white' : 'lightgrey'} />
+            <FontAwesome name="star" size={30} color={focused ? '#E2F163' : 'white'} />
           ),
         }}
       />
@@ -39,7 +39,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           tabBarIcon: ({ focused }) => (
-            <FontAwesome name="user" size={30} color={focused ? 'white' : 'lightgrey'} />
+            <FontAwesome name="user" size={30} color={focused ? '#E2F163' : 'white'} />
           ),
         }}
       />

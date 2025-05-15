@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 
-import { TabBarIcon } from '../../components/TabBarIcon';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function TabLayout() {
   return (
@@ -14,25 +14,33 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: () => <TabBarIcon name="home" color={'white'} />,
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome name="home" size={30} color={focused ? 'white' : 'lightgrey'} />
+          ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          tabBarIcon: () => <TabBarIcon name="save" color={'white'} />,
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome name="save" size={30} color={focused ? 'white' : 'lightgrey'} />
+          ),
         }}
       />
       <Tabs.Screen
         name="favorites"
         options={{
-          tabBarIcon: () => <TabBarIcon name="star" color={'white'} />,
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome name="star" size={30} color={focused ? 'white' : 'lightgrey'} />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarIcon: () => <TabBarIcon name="user" color={'white'} />,
+          tabBarIcon: ({ focused }) => (
+            <FontAwesome name="user" size={30} color={focused ? 'white' : 'lightgrey'} />
+          ),
         }}
       />
     </Tabs>

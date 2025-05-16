@@ -1,8 +1,18 @@
-import { Tabs } from 'expo-router';
+import { router, Tabs } from 'expo-router';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useAuth } from '~/context/AuthContext';
+import { useEffect } from 'react';
 
 export default function TabLayout() {
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/(auth)/onboarding');
+    }
+  }, [user, loading]);
+
   return (
     <Tabs
       screenOptions={{

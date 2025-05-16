@@ -3,6 +3,7 @@ import { router, Tabs } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useAuth } from '~/context/AuthContext';
 import { useEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
 
 export default function TabLayout() {
   const { user, loading } = useAuth();
@@ -12,6 +13,10 @@ export default function TabLayout() {
       router.replace('/(auth)/onboarding');
     }
   }, [user, loading]);
+
+  if (loading) {
+    return <ActivityIndicator style={{ alignSelf: 'center', flex: 1 }} />;
+  }
 
   return (
     <Tabs

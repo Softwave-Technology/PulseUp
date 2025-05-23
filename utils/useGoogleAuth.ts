@@ -1,8 +1,8 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from './firebase';
+import { auth } from '../utils/firebase';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -11,15 +11,42 @@ export const useGoogleAuth = () => {
     clientId: process.env.EXPO_PUBLIC_AUTH_CLIENT_ID,
   });
 
-  useEffect(() => {
-    if (response?.type === 'success') {
-      const { id_token }: any = response.authentication!;
-      const credential = GoogleAuthProvider.credential(id_token);
-      signInWithCredential(auth, credential).catch((err) =>
-        console.log('Firebase Google Sign-In Error:', err)
-      );
-    }
-  }, [response]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  return { request, promptAsync };
+  const signInWithGoogle = async () => {
+    setError(null);
+    setLoading(true);
+
+    try {
+      const result = await promptAsync();
+      if (result.type !== 'success') {
+        setError('Authentication was cancelled or failed.');
+        setLoading(false);
+        return;
+      }
+
+      const id_token = result.authentication?.idToken;
+      if (!id_token) {
+        setError('Missing ID token from Google.');
+        setLoading(false);
+        return;
+      }
+
+      const credential = GoogleAuthProvider.credential(id_token);
+      await signInWithCredential(auth, credential);
+    } catch (err: any) {
+      console.error('Google Sign-In Error:', err);
+      setError(err.message || 'Something went wrong during Google Sign-In.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    signInWithGoogle,
+    loading,
+    error,
+    request,
+  };
 };

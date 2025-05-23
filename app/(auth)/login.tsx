@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {
-  View,
   Text,
   TextInput,
   TouchableOpacity,
@@ -14,22 +13,23 @@ import { router } from 'expo-router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../utils/firebase';
 import { AntDesign } from '@expo/vector-icons';
-// Import your Google auth logic
-// import { signInWithGoogle } from '../../utils/google-auth';
+import { useGoogleAuth } from '../../utils/useGoogleAuth';
 
 export default function Login() {
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [emailLoading, setEmailLoading] = useState(false);
 
-  const handleLogin = async () => {
+  const { signInWithGoogle, loading: googleLoading, error: googleError } = useGoogleAuth();
+
+  const handleEmailLogin = async () => {
     if (!email || !password) {
       Alert.alert('Missing Fields', 'Please enter both email and password.');
       return;
     }
 
-    setLoading(true);
+    setEmailLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.replace('/');
@@ -41,15 +41,14 @@ export default function Login() {
 
       Alert.alert('Login Error', message);
     } finally {
-      setLoading(false);
+      setEmailLoading(false);
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
-      // await signInWithGoogle();
-      router.replace('/');
-    } catch (error) {
+      await signInWithGoogle();
+    } catch {
       Alert.alert('Google Sign-In Failed', 'Please try again.');
     }
   };
@@ -61,10 +60,23 @@ export default function Login() {
       <Text style={styles.title}>Welcome to PulseUp</Text>
       <Text style={styles.subtitle}>Let’s get started</Text>
 
-      <TouchableOpacity style={styles.googleButton} onPress={handleGoogleLogin}>
-        <AntDesign name="google" size={20} color="#000" style={styles.googleIcon} />
-        <Text style={styles.googleText}>Continue with Google</Text>
+      <TouchableOpacity
+        style={styles.googleButton}
+        onPress={handleGoogleLogin}
+        disabled={googleLoading}>
+        {googleLoading ? (
+          <ActivityIndicator size="small" color="#000" />
+        ) : (
+          <>
+            <AntDesign name="google" size={20} color="#000" style={styles.googleIcon} />
+            <Text style={styles.googleText}>Continue with Google</Text>
+          </>
+        )}
       </TouchableOpacity>
+
+      {googleError && (
+        <Text style={styles.errorText}>Google Sign-In failed. Please try again.</Text>
+      )}
 
       {!showEmailForm && (
         <TouchableOpacity onPress={() => setShowEmailForm(true)} style={styles.emailReveal}>
@@ -92,10 +104,10 @@ export default function Login() {
             placeholderTextColor="#888"
           />
           <TouchableOpacity
-            onPress={handleLogin}
-            style={[styles.button, loading && styles.buttonDisabled]}
-            disabled={loading}>
-            {loading ? (
+            onPress={handleEmailLogin}
+            style={[styles.button, emailLoading && styles.buttonDisabled]}
+            disabled={emailLoading}>
+            {emailLoading ? (
               <ActivityIndicator color="white" />
             ) : (
               <Text style={styles.buttonText}>Login</Text>
@@ -196,5 +208,10 @@ const styles = StyleSheet.create({
   registerTextBold: {
     fontWeight: '600',
     color: '#000000',
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+    marginBottom: 12,
   },
 });

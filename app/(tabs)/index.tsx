@@ -1,9 +1,15 @@
-import { StatusBar, View } from 'react-native';
+import { StatusBar, View, StyleSheet } from 'react-native';
 
 export default function Home() {
   return (
-    <View className="flex-1 bg-[#232323]">
-      <StatusBar barStyle={'dark-content'} />
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
     </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#232323',
+  },
+});

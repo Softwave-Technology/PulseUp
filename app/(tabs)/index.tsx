@@ -1,5 +1,13 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { StatusBar, View, StyleSheet, SafeAreaView, Text, Platform } from 'react-native';
+import {
+  StatusBar,
+  View,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import Recommendations from '~/components/Recommendations';
 
 export default function Home() {
@@ -13,9 +21,13 @@ export default function Home() {
           </View>
           <FontAwesome name="user" color={'#896CFE'} size={25} />
         </View>
-        <View style={styles.recommendations}>
-          <Recommendations />
-        </View>
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.recommendations}>
+            <Recommendations />
+          </View>
+        </ScrollView>
       </SafeAreaView>
       <StatusBar barStyle="dark-content" />
     </View>

@@ -8,7 +8,8 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import Recommendations from '~/components/Recommendations';
+import ExerciseList from '~/components/ExerciseList';
+// import Recommendations from '~/components/Recommendations';
 
 export default function Home() {
   return (
@@ -24,9 +25,15 @@ export default function Home() {
         <ScrollView
           contentContainerStyle={{ paddingBottom: 20 }}
           showsVerticalScrollIndicator={false}>
-          <View style={styles.recommendations}>
-            <Recommendations />
+          {/* Exercise list component */}
+          <View style={styles.bodyContainer}>
+            <Text style={styles.bodyTitle}>Exercises</Text>
+            <ExerciseList />
           </View>
+          {/* Recommendations Compoennt */}
+          {/*  <View style={styles.recommendations}>
+            <Recommendations />
+          </View>*/}
         </ScrollView>
       </SafeAreaView>
       <StatusBar barStyle="dark-content" />
@@ -56,7 +63,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
   },
-  recommendations: {
+  bodyContainer: {
     padding: 10,
+  },
+  bodyTitle: {
+    fontSize: 20,
+    color: '#E2F163',
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });

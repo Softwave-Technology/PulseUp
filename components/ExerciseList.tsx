@@ -5,16 +5,17 @@ import { useState } from 'react';
 import { Exercise } from '~/types/Exercise';
 
 export default function ExerciseList() {
-  const [searchInput, setSearchInput] = useState('');
+  {
+    /*const [searchInput, setSearchInput] = useState('');
   const [filtered, setFiltered] = useState<Exercise[] | any>(exercises);
-
   const handleSearch = (input: string) => {
     setSearchInput(input);
     const filteredData = exercises.filter((exercise: Exercise) =>
       exercise.name.toLowerCase().includes(input.toLowerCase())
     );
     setFiltered(filteredData);
-  };
+  };*/
+  }
 
   return (
     <View style={styles.container}>

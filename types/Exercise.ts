@@ -1,9 +1,13 @@
 export type Exercise = {
   id: string;
   name: string;
-  type: string;
-  muscle: string;
+  force: string;
+  level: string;
+  mechanic: string | null;
   equipment: string;
-  difficulty: string;
-  instructions: string;
+  primaryMuscles: string[];
+  secondaryMuscles: string[];
+  instructions: string[];
+  category: string;
+  images: string[];
 };

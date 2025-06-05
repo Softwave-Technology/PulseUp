@@ -1,21 +1,29 @@
 import { View, StyleSheet, TextInput, Pressable, Text } from 'react-native';
 import { LegendList } from '@legendapp/list';
 import exercises from '~/assets/data/exercises.json';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Exercise } from '~/types/Exercise';
 
 export default function ExerciseList() {
-  {
-    /*const [searchInput, setSearchInput] = useState('');
-  const [filtered, setFiltered] = useState<Exercise[] | any>(exercises);
-  const handleSearch = (input: string) => {
-    setSearchInput(input);
-    const filteredData = exercises.filter((exercise: Exercise) =>
-      exercise.name.toLowerCase().includes(input.toLowerCase())
+  const [groupedExercises, setGroupedExercises] = useState<Record<string, Exercise[]>>({});
+
+  // filtering exercises based on their categories
+  useEffect(() => {
+    const data: Exercise[] = exercises;
+    const grouped = data.reduce(
+      (acc, exercise) => {
+        const category = exercise.category;
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(exercise);
+        return acc;
+      },
+      {} as Record<string, Exercise[]>
     );
-    setFiltered(filteredData);
-  };*/
-  }
+
+    setGroupedExercises(grouped);
+  }, []);
 
   return (
     <View style={styles.container}>

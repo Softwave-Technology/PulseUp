@@ -25,6 +25,7 @@ export default function ExerciseList() {
     setGroupedExercises(grouped);
   }, []);
 
+  // Displaying groups of exercises
   return (
     <View style={styles.container}>
       <LegendList

@@ -9,7 +9,11 @@ export default function ExerciseList() {
 
   useEffect(() => {
     const data: Exercise[] = exercises;
-    const grouped = data.reduce(
+
+    // Filter to show only beginner-level exercises
+    const filtered = data.filter((exercise) => exercise.level === 'beginner');
+
+    const grouped = filtered.reduce(
       (acc, exercise) => {
         const category = exercise.category;
         if (!acc[category]) acc[category] = [];
@@ -29,7 +33,7 @@ export default function ExerciseList() {
         renderItem={({ item: [category, exercises] }) => (
           <View style={styles.categorySection}>
             <Text style={styles.categoryTitle}>{category.toUpperCase()}</Text>
-            {exercises.map((exercise) => (
+            {exercises.slice(0, 10).map((exercise) => (
               <Pressable key={exercise.id} style={styles.exerciseCard}>
                 <Text style={styles.exerciseName}>{exercise.name}</Text>
               </Pressable>
@@ -54,6 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 12,
+    color: '#E2F163',
   },
   exerciseCard: {
     backgroundColor: '#f0f0f0',

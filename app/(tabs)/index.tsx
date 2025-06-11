@@ -27,7 +27,7 @@ export default function Home() {
           showsVerticalScrollIndicator={false}>
           {/* Exercise list component */}
           <View style={styles.bodyContainer}>
-            <Text style={styles.bodyTitle}>Categories</Text>
+            <Text style={styles.bodyTitle}>Beginner Exercises</Text>
             <ExerciseList />
           </View>
           {/* Recommendations Compoennt */}

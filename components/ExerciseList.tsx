@@ -30,9 +30,11 @@ export default function ExerciseList() {
     <View style={styles.container}>
       <LegendList
         style={{ flex: 1 }}
-        data={exercises}
-        renderItem={({ item }) => <View style={styles.exerciseContainer}></View>}
-        keyExtractor={(item) => item.id}
+        data={Object.entries(groupedExercises)}
+        renderItem={({ item: [category, exercise] }) => (
+          <View style={styles.exerciseContainer}></View>
+        )}
+        keyExtractor={([category]) => category}
         recycleItems
       />
     </View>

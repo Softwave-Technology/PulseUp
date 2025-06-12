@@ -1,4 +1,3 @@
-import { FontAwesome } from '@expo/vector-icons';
 import {
   StatusBar,
   View,
@@ -20,7 +19,6 @@ export default function Home() {
             <Text style={styles.headerTitle}>Welcome Back!</Text>
             <Text style={styles.headerSubtitle}>It is time to challenge your limits.</Text>
           </View>
-          <FontAwesome name="user" color={'#896CFE'} size={25} />
         </View>
         <ScrollView
           contentContainerStyle={{ paddingBottom: 20 }}
@@ -36,7 +34,7 @@ export default function Home() {
           </View>*/}
         </ScrollView>
       </SafeAreaView>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
     </View>
   );
 }
